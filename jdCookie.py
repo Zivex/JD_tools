@@ -40,9 +40,10 @@ if "JD_COOKIE" in os.environ:
     cookiesLists = []  # 重置cookiesList
     print(secret)
     for line in secret.split('\n'):
-        print(line)
-        pt_pin = re.findall(r'pt_pin=(.*?)&', line)[0]
-        pt_key = re.findall(r'pt_key=(.*?)$', line)[0]
+#         print(line)
+        pt_pin = re.findall(r'pt_pin=(.*?);', line)
+        pt_key = re.findall(r'pt_key=(.*?);', line)
+        print(pt_pin,pt_key)      
         cookiesLists.append({"pt_pin": pt_pin, "pt_key": pt_key})
 
 #######################################
