@@ -31,18 +31,19 @@ cookiesLists = []  # 多账号准备
 
 ####################################
 # 方案2 GitHub action 自动运行    cookies读取自secrets  
-if "JD_COOKIE" in os.environ:
+if "pt_pin" in os.environ && "pt_key" in os.environ:
     """
     判断是否运行自 GitHub action, "JD_COOKIE" 该参数与 repo里的Secrets的名称保持一致
     """
     print("执行自GitHub action")
-    secret = os.environ["JD_COOKIE"]
+    pt_pin = secret = os.environ["pt_pin"]
+    pt_key = secret = os.environ["pt_key"]
     cookiesLists = []  # 重置cookiesList
 #     print(secret)
 #     for line in secret.split('\n'):
 #         print(line)
-    pt_pin = re.findall(r'pt_pin=(.*?);', secret)[0]
-    pt_key = re.findall(r'pt_key=(.*?);', secret)[0]
+#     pt_pin = re.findall(r'pt_pin=(.*?);', secret)[0]
+#     pt_key = re.findall(r'pt_key=(.*?);', secret)[0]
     print(pt_pin,pt_key)      
     cookiesLists.append({"pt_pin": pt_pin, "pt_key": pt_key})
 
