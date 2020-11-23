@@ -31,7 +31,7 @@ cookiesLists = []  # 多账号准备
 
 ####################################
 # 方案2 GitHub action 自动运行    cookies读取自secrets  
-if "pt_pin" in os.environ && "pt_key" in os.environ:
+if "pt_pin" in os.environ and "pt_key" in os.environ:
     """
     判断是否运行自 GitHub action, "JD_COOKIE" 该参数与 repo里的Secrets的名称保持一致
     """
