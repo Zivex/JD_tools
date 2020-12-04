@@ -11,6 +11,7 @@ import time
 
 needYou2Know = 1   # [0,1,2,3]  0:不通知     1:server酱      2:SMTP邮件服务        3:bark服务
 
+
 SCKEY = ''        # Server酱的SCKEY
 
 email_dict = {
@@ -78,9 +79,12 @@ def serverJ(title, content):
     response = requests.post(f"https://sc.ftqq.com/{sckey}.send", data=data)
     print(response.text)
 
+
 def bark(title, content):
     """bark服务"""
     bark_token = BARK
+    title = content.replace("#", "")
+    content = content.replace("#", "")
     if "BARK" in os.environ:
         """
         判断是否运行自GitHub action,"BARK" 该参数与 repo里的Secrets的名称保持一致
@@ -92,8 +96,8 @@ def bark(title, content):
     response = requests.get(
         f"""https://api.day.app/{bark_token}/{title}/{content}""")
     print(response.text)
-    
-    
+
+
 notify = [n0, serverJ, send_email, bark][needYou2Know]
 
 if __name__ == "__main__":
