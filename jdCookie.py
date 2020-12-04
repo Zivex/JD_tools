@@ -17,6 +17,7 @@ import notification
 需要推送通知的，修改notification.py
 """
 
+
 ###############################
 # 方案1 本地执行、云服务器、云函数等等   下载到本地，填写参数，执行
 cookies1 = {
@@ -26,26 +27,26 @@ cookies1 = {
 
 cookies2 = {}   # 如果有其它账号，还需要将cookies2填写进 下面的cookieLists
 
-cookiesLists = []  # 多账号准备
+cookiesLists = [cookies1, ]  # 多账号准备
 
 
 ####################################
-# 方案2 GitHub action 自动运行    cookies读取自secrets  
-if "pt_pin" in os.environ and "pt_key" in os.environ:
+# 方案2 GitHub action 自动运行    cookies读取自secrets
+# if "JD_COOKIE" in os.environ:
+if True:
     """
     判断是否运行自 GitHub action, "JD_COOKIE" 该参数与 repo里的Secrets的名称保持一致
     """
     print("执行自GitHub action")
-    pt_pin = secret = os.environ["pt_pin"]
-    pt_key = secret = os.environ["pt_key"]
+    secret = os.environ["JD_COOKIE"]
+    # secret = cookiesJd
     cookiesLists = []  # 重置cookiesList
-#     print(secret)
-#     for line in secret.split('\n'):
-#         print(line)
-#     pt_pin = re.findall(r'pt_pin=(.*?);', secret)[0]
-#     pt_key = re.findall(r'pt_key=(.*?);', secret)[0]
-    print(pt_pin,pt_key)      
-    cookiesLists.append({"pt_pin": pt_pin, "pt_key": pt_key})
+    for line in secret.split('\n'):
+        pattern_pin = re.compile(r'pt_pin=(.*?);')  # 查找pt_pin
+        pattern_key = re.compile(r'pt_key=(.*?);') # 查找pt_key
+        pt_pin = pattern_pin.findall(line)[0]
+        pt_key = pattern_key.findall(line)[0]
+        cookiesLists.append({"pt_pin": pt_pin, "pt_key": pt_key})
 
 #######################################
 
